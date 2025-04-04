@@ -1,0 +1,787 @@
+{
+	"info": {
+		"_postman_id": "a8097485-29d6-4d09-b4a7-99ee5124dbc7",
+		"name": "E-learning",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27285698"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "promote user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"newRole\": \"FACULTY\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/admin/promote-user/222ffa2c-6168-4562-8030-ee27409d47a5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"admin",
+						"promote-user",
+						"222ffa2c-6168-4562-8030-ee27409d47a5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signup",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "logout Copy",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"dgsnjjr@gmail.com\",\r\n    \"password\" : \" qwer1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "course create",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Video to Course",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/courses/51b846ea-6200-4635-8fce-a43a5824eb87/videos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"courses",
+						"51b846ea-6200-4635-8fce-a43a5824eb87",
+						"videos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " Get Course",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "Get Course",
+					"host": [
+						"Get Course"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Video Details",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/courses/videos/991795be-2c0b-497e-a7e9-2e7f923dcf0f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"courses",
+						"videos",
+						"991795be-2c0b-497e-a7e9-2e7f923dcf0f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Course Comment",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " Post Video Comment",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"I liked this video\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/courses/videos/<videoId>/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"courses",
+						"videos",
+						"<videoId>",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Course Comments",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " Get Video Comments",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "Get Video Comments",
+					"host": [
+						"Get Video Comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rating add",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"rating\": 4\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/courses/51b846ea-6200-4635-8fce-a43a5824eb87/rate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"courses",
+						"51b846ea-6200-4635-8fce-a43a5824eb87",
+						"rate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Faculty Rating",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"rating\": 4\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/courses/51b846ea-6200-4635-8fce-a43a5824eb87/rate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"courses",
+						"51b846ea-6200-4635-8fce-a43a5824eb87",
+						"rate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete course",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/courses/51b846ea-6200-4635-8fce-a43a5824eb87/rate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"courses",
+						"51b846ea-6200-4635-8fce-a43a5824eb87",
+						"rate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete video",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/courses/videos/991795be-2c0b-497e-a7e9-2e7f923dcf0f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"courses",
+						"videos",
+						"991795be-2c0b-497e-a7e9-2e7f923dcf0f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reply comment",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/courses/comments/c157f65a-4e07-441e-8c15-915f8f108a97/reply",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"courses",
+						"comments",
+						"c157f65a-4e07-441e-8c15-915f8f108a97",
+						"reply"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all comment",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/courses/comments/c157f65a-4e07-441e-8c15-915f8f108a97",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"courses",
+						"comments",
+						"c157f65a-4e07-441e-8c15-915f8f108a97"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Faculty Course Count",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/courses/faculty/222ffa2c-6168-4562-8030-ee27409d47a5/count",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"courses",
+						"faculty",
+						"222ffa2c-6168-4562-8030-ee27409d47a5",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reorder Video",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000 /api/courses/videos/:id/position",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000 ",
+					"path": [
+						"api",
+						"courses",
+						"videos",
+						":id",
+						"position"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Course Details",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/courses51b846ea-6200-4635-8fce-a43a5824eb87/details",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"courses51b846ea-6200-4635-8fce-a43a5824eb87",
+						"details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " Upload Assignment",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "Upload Assignment",
+					"host": [
+						"Upload Assignment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Quiz",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Week 1 Quiz\",\r\n  \"questions\": [\r\n    {\r\n      \"question\": \"What is AI?\",\r\n      \"options\": [\"Art Intelligence\", \"Artificial Intelligence\", \"Advanced Internet\"],\r\n      \"correctAnswer\": 1\r\n    }\r\n  ],\r\n  \"timeLimit\": 10\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/courses/videos/991795be-2c0b-497e-a7e9-2e7f923dcf0f/quizzes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"courses",
+						"videos",
+						"991795be-2c0b-497e-a7e9-2e7f923dcf0f",
+						"quizzes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit Quiz",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update profile",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone",
+							"value": "9876543210",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "21",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "IIT Bhubaneswar",
+							"type": "text"
+						},
+						{
+							"key": "college",
+							"value": "IIT BBS",
+							"type": "text"
+						},
+						{
+							"key": "about",
+							"value": "M.Tech student",
+							"type": "text"
+						},
+						{
+							"key": "profilePicture",
+							"type": "file",
+							"src": "postman-cloud:///1f011508-06c1-4c30-a67b-b0214e2e5d7a"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get profile",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ANALYTICS ROUTES",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/analytics/admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"analytics",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Faculty Dashboard",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "STUDENT PROGRESS ROUTES",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Detailed Course",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/progress/courses/:courseId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"progress",
+						"courses",
+						":courseId"
+					],
+					"variable": [
+						{
+							"key": "courseId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Track Video Progress",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/progress/videos/991795be-2c0b-497e-a7e9-2e7f923dcf0f/track",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"progress",
+						"videos",
+						"991795be-2c0b-497e-a7e9-2e7f923dcf0f",
+						"track"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Course Progress",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/progress/courses/51b846ea-6200-4635-8fce-a43a5824eb87/progress",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"progress",
+						"courses",
+						"51b846ea-6200-4635-8fce-a43a5824eb87",
+						"progress"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
