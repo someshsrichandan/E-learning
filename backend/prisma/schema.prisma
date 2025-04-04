@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String        @id @default(uuid())
+  name             String
+  email            String        @unique
+  password         String
+  role             Role
+  courses          Course[]      @relation("facultyCourses")
+  submissions      Submission[]
+  sentMessages     Message[]     @relation("SenderMessages")
+  receivedMessages Message[]     @relation("ReceiverMessages")
+  quizResults      QuizResult[]
+  createdAt        DateTime      @default(now())
+}
+
+enum Role {
+  ADMIN
+  FACULTY
+  STUDENT
+}
+
+model Course {
+  id           String       @id @default(uuid())
+  title        String
+  description  String
+  facultyId    String
+  faculty      User         @relation(fields: [facultyId], references: [id], name: "facultyCourses")
+  videos       Video[]
+  assignments  Assignment[]
+  quizzes      Quiz[]
+  createdAt    DateTime     @default(now())
+}
+
+model Video {
+  id          String   @id @default(uuid())
+  title       String
+  url         String
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id])
+  createdAt   DateTime @default(now())
+}
+
+model Assignment {
+  id          String       @id @default(uuid())
+  title       String
+  description String
+  deadline    DateTime
+  courseId    String
+  course      Course       @relation(fields: [courseId], references: [id])
+  submissions Submission[]
+  createdAt   DateTime     @default(now())
+}
+
+model Submission {
+  id            String     @id @default(uuid())
+  fileUrl       String
+  submittedAt   DateTime   @default(now())
+  assignmentId  String
+  assignment    Assignment @relation(fields: [assignmentId], references: [id])
+  studentId     String
+  student       User       @relation(fields: [studentId], references: [id])
+}
+
+model Quiz {
+  id          String       @id @default(uuid())
+  title       String
+  questions   Json
+  courseId    String
+  course      Course       @relation(fields: [courseId], references: [id])
+  quizResults QuizResult[]
+  createdAt   DateTime     @default(now())
+}
+
+model QuizResult {
+  id        String   @id @default(uuid())
+  score     Int
+  quizId    String
+  studentId String
+  quiz      Quiz     @relation(fields: [quizId], references: [id])
+  student   User     @relation(fields: [studentId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  senderId   String
+  receiverId String
+  content    String
+  sender     User     @relation("SenderMessages", fields: [senderId], references: [id])
+  receiver   User     @relation("ReceiverMessages", fields: [receiverId], references: [id])
+  createdAt  DateTime @default(now())
+}
