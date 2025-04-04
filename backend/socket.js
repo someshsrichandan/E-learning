@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 import prisma from "./config/prismaClient.js";
-import * as chatController from "../controllers/chatController.js";
+import * as chatController from "./controller/chatController.js";
 
 export const initializeSocket = (server) => {
   const io = new Server(server, {
