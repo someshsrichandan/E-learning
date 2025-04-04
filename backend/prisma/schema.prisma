@@ -39,6 +39,8 @@ model User {
   comments         Comment[]
   courseRatings    CourseRating[]
   createdAt        DateTime       @default(now())
+  videoProgress   VideoProgress[]
+  courseProgress  CourseProgress[]
 }
 
 model Course {
@@ -62,6 +64,8 @@ model Course {
   ratings       CourseRating[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
+  progress CourseProgress[]
+
 }
 
 model CourseRating {
@@ -88,6 +92,8 @@ model Video {
   quizzes     Quiz[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
+  progress VideoProgress[]
+
 }
 
 model Comment {
@@ -168,4 +174,33 @@ model Message {
   receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
   createdAt  DateTime @default(now())
   read       Boolean  @default(false)
+}
+
+model VideoProgress {
+  id        String   @id @default(uuid())
+  studentId String
+  videoId   String
+  watched   Boolean  @default(false)
+  watchedAt DateTime?
+  createdAt DateTime @default(now())
+
+  student   User     @relation(fields: [studentId], references: [id])
+  video     Video    @relation(fields: [videoId], references: [id])
+
+  @@unique([studentId, videoId])
+}
+
+model CourseProgress {
+  id         String   @id @default(uuid())
+  studentId  String
+  courseId   String
+  percentage Int      @default(0)
+  completed  Boolean  @default(false)
+  updatedAt  DateTime @updatedAt
+  createdAt  DateTime @default(now())
+
+  student    User     @relation(fields: [studentId], references: [id])
+  course     Course   @relation(fields: [courseId], references: [id])
+
+  @@unique([studentId, courseId])
 }
