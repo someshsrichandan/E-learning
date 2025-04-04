@@ -24,6 +24,12 @@ model User {
   name             String
   email            String         @unique
   password         String
+  phone            String?
+  age              Int?
+  address          String?
+  college          String?
+  about            String?
+  profilePicture   String?
   role             Role
   courses          Course[]       @relation("FacultyCourses")
   submissions      Submission[]
@@ -36,26 +42,26 @@ model User {
 }
 
 model Course {
-  id             String           @id @default(uuid())
-  title          String
-  description    String
-  about          String?
-  learnings      Json?
-  requirements   Json?
-  category       String?
-  thumbnailUrl   String
-  status         CourseStatus     @default(DRAFT)
-  averageRating  Float?           @default(0)
-  ratingCount    Int?             @default(0)
-  facultyId      String
-  faculty        User             @relation("FacultyCourses", fields: [facultyId], references: [id])
-  videos         Video[]
-  comments       Comment[]
-  assignments    Assignment[]
-  quizzes        Quiz[]
-  ratings        CourseRating[]
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  id            String         @id @default(uuid())
+  title         String
+  description   String
+  about         String?
+  learnings     Json?
+  requirements  Json?
+  category      String?
+  thumbnailUrl  String
+  status        CourseStatus   @default(DRAFT)
+  averageRating Float?         @default(0)
+  ratingCount   Int?           @default(0)
+  facultyId     String
+  faculty       User           @relation("FacultyCourses", fields: [facultyId], references: [id])
+  videos        Video[]
+  comments      Comment[]
+  assignments   Assignment[]
+  quizzes       Quiz[]
+  ratings       CourseRating[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
 model CourseRating {
@@ -85,22 +91,22 @@ model Video {
 }
 
 model Comment {
-  id        String     @id @default(uuid())
+  id        String    @id @default(uuid())
   content   String
   courseId  String?
   videoId   String?
   userId    String
   parentId  String?
-  course    Course?    @relation(fields: [courseId], references: [id])
-  video     Video?     @relation(fields: [videoId], references: [id])
-  user      User       @relation(fields: [userId], references: [id])
-  parent    Comment?   @relation("Replies", fields: [parentId], references: [id])
-  replies   Comment[]  @relation("Replies")
-  createdAt DateTime   @default(now())
+  course    Course?   @relation(fields: [courseId], references: [id])
+  video     Video?    @relation(fields: [videoId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
+  parent    Comment?  @relation("Replies", fields: [parentId], references: [id])
+  replies   Comment[] @relation("Replies")
+  createdAt DateTime  @default(now())
 }
 
 model Assignment {
-  id          String     @id @default(uuid())
+  id          String       @id @default(uuid())
   title       String
   description String?
   deadline    DateTime
@@ -108,37 +114,37 @@ model Assignment {
   resources   String?
   courseId    String
   videoId     String?
-  course      Course     @relation(fields: [courseId], references: [id])
-  video       Video?     @relation(fields: [videoId], references: [id])
+  course      Course       @relation(fields: [courseId], references: [id])
+  video       Video?       @relation(fields: [videoId], references: [id])
   submissions Submission[]
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
 model Submission {
-  id            String     @id @default(uuid())
-  fileUrl       String
-  submittedAt   DateTime   @default(now())
-  assignmentId  String
-  assignment    Assignment @relation(fields: [assignmentId], references: [id])
-  studentId     String
-  student       User       @relation(fields: [studentId], references: [id])
-  feedback      String?
-  grade         Int?
-  createdAt     DateTime   @default(now())
+  id           String     @id @default(uuid())
+  fileUrl      String
+  submittedAt  DateTime   @default(now())
+  assignmentId String
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+  studentId    String
+  student      User       @relation(fields: [studentId], references: [id])
+  feedback     String?
+  grade        Int?
+  createdAt    DateTime   @default(now())
 }
 
 model Quiz {
-  id          String       @id @default(uuid())
-  title       String
-  questions   String
-  timeLimit   Int?
-  courseId    String
-  videoId     String?
-  course      Course       @relation(fields: [courseId], references: [id])
-  video       Video?       @relation(fields: [videoId], references: [id])
-  results     QuizResult[]
-  createdAt   DateTime     @default(now())
+  id        String       @id @default(uuid())
+  title     String
+  questions String
+  timeLimit Int?
+  courseId  String
+  videoId   String?
+  course    Course       @relation(fields: [courseId], references: [id])
+  video     Video?       @relation(fields: [videoId], references: [id])
+  results   QuizResult[]
+  createdAt DateTime     @default(now())
 }
 
 model QuizResult {

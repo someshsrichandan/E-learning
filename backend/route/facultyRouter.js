@@ -6,6 +6,8 @@ import prisma from "../config/prismaClient.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { v4 as uuidv4 } from "uuid";
 import { minioClient } from "../config/minio.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const router = express.Router();
 
