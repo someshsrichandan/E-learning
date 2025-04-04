@@ -50,37 +50,7 @@ authRouter.post('/signup', async (req, res) => {
 });
 
 // Admin-only User Creation (ADMIN/FACULTY)
-authRouter.put('/promote-user/:userId', authMiddleware(['ADMIN']), async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const { newRole } = req.body;
 
-    if (!['FACULTY'].includes(newRole)) {
-      return res
-        .status(400)
-        .json({ error: 'Invalid role. Only FACULTY promotion is allowed.' });
-    }
-
-    const user = await prisma.user.findUnique({ where: { id: userId } });
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    if (user.role !== 'STUDENT') {
-      return res.status(400).json({ error: 'Only STUDENTs can be promoted to FACULTY' });
-    }
-
-    const updatedUser = await prisma.user.update({
-      where: { id: userId },
-      data: { role: newRole },
-    });
-
-    res.status(200).json({ message: 'User promoted successfully', user: updatedUser });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
-});
 
 // Login Route
 authRouter.post('/login', async (req, res) => {
