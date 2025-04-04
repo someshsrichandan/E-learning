@@ -7,56 +7,112 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id               String        @id @default(uuid())
-  name             String
-  email            String        @unique
-  password         String
-  role             Role
-  courses          Course[]      @relation("facultyCourses")
-  submissions      Submission[]
-  sentMessages     Message[]     @relation("SenderMessages")
-  receivedMessages Message[]     @relation("ReceiverMessages")
-  quizResults      QuizResult[]
-  createdAt        DateTime      @default(now())
-}
-
 enum Role {
   ADMIN
   FACULTY
   STUDENT
 }
 
+enum CourseStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model User {
+  id               String         @id @default(uuid())
+  name             String
+  email            String         @unique
+  password         String
+  role             Role
+  courses          Course[]       @relation("FacultyCourses")
+  submissions      Submission[]
+  sentMessages     Message[]      @relation("SentMessages")
+  receivedMessages Message[]      @relation("ReceivedMessages")
+  quizResults      QuizResult[]
+  comments         Comment[]
+  courseRatings    CourseRating[]
+  createdAt        DateTime       @default(now())
+}
+
 model Course {
-  id           String       @id @default(uuid())
-  title        String
-  description  String
-  facultyId    String
-  faculty      User         @relation(fields: [facultyId], references: [id], name: "facultyCourses")
-  videos       Video[]
-  assignments  Assignment[]
-  quizzes      Quiz[]
-  createdAt    DateTime     @default(now())
+  id             String           @id @default(uuid())
+  title          String
+  description    String
+  about          String?
+  learnings      Json?
+  requirements   Json?
+  category       String?
+  thumbnailUrl   String
+  status         CourseStatus     @default(DRAFT)
+  averageRating  Float?           @default(0)
+  ratingCount    Int?             @default(0)
+  facultyId      String
+  faculty        User             @relation("FacultyCourses", fields: [facultyId], references: [id])
+  videos         Video[]
+  comments       Comment[]
+  assignments    Assignment[]
+  quizzes        Quiz[]
+  ratings        CourseRating[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+}
+
+model CourseRating {
+  id        String   @id @default(uuid())
+  rating    Int      @default(1)
+  courseId  String
+  userId    String
+  course    Course   @relation(fields: [courseId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
 }
 
 model Video {
-  id          String   @id @default(uuid())
+  id          String       @id @default(uuid())
   title       String
+  description String?
   url         String
+  position    Int          @default(0)
+  resources   String?
   courseId    String
-  course      Course   @relation(fields: [courseId], references: [id])
-  createdAt   DateTime @default(now())
+  course      Course       @relation(fields: [courseId], references: [id])
+  comments    Comment[]
+  assignments Assignment[]
+  quizzes     Quiz[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Comment {
+  id        String     @id @default(uuid())
+  content   String
+  courseId  String?
+  videoId   String?
+  userId    String
+  parentId  String?
+  course    Course?    @relation(fields: [courseId], references: [id])
+  video     Video?     @relation(fields: [videoId], references: [id])
+  user      User       @relation(fields: [userId], references: [id])
+  parent    Comment?   @relation("Replies", fields: [parentId], references: [id])
+  replies   Comment[]  @relation("Replies")
+  createdAt DateTime   @default(now())
 }
 
 model Assignment {
-  id          String       @id @default(uuid())
+  id          String     @id @default(uuid())
   title       String
-  description String
+  description String?
   deadline    DateTime
+  fileUrl     String?
+  resources   String?
   courseId    String
-  course      Course       @relation(fields: [courseId], references: [id])
+  videoId     String?
+  course      Course     @relation(fields: [courseId], references: [id])
+  video       Video?     @relation(fields: [videoId], references: [id])
   submissions Submission[]
-  createdAt   DateTime     @default(now())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
 
 model Submission {
@@ -67,26 +123,34 @@ model Submission {
   assignment    Assignment @relation(fields: [assignmentId], references: [id])
   studentId     String
   student       User       @relation(fields: [studentId], references: [id])
+  feedback      String?
+  grade         Int?
+  createdAt     DateTime   @default(now())
 }
 
 model Quiz {
   id          String       @id @default(uuid())
   title       String
-  questions   Json
+  questions   String
+  timeLimit   Int?
   courseId    String
+  videoId     String?
   course      Course       @relation(fields: [courseId], references: [id])
-  quizResults QuizResult[]
+  video       Video?       @relation(fields: [videoId], references: [id])
+  results     QuizResult[]
   createdAt   DateTime     @default(now())
 }
 
 model QuizResult {
-  id        String   @id @default(uuid())
-  score     Int
-  quizId    String
-  studentId String
-  quiz      Quiz     @relation(fields: [quizId], references: [id])
-  student   User     @relation(fields: [studentId], references: [id])
-  createdAt DateTime @default(now())
+  id             String   @id @default(uuid())
+  score          Int
+  totalQuestions Int
+  details        String?
+  quizId         String
+  studentId      String
+  quiz           Quiz     @relation(fields: [quizId], references: [id])
+  student        User     @relation(fields: [studentId], references: [id])
+  createdAt      DateTime @default(now())
 }
 
 model Message {
@@ -94,7 +158,8 @@ model Message {
   senderId   String
   receiverId String
   content    String
-  sender     User     @relation("SenderMessages", fields: [senderId], references: [id])
-  receiver   User     @relation("ReceiverMessages", fields: [receiverId], references: [id])
+  sender     User     @relation("SentMessages", fields: [senderId], references: [id])
+  receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
   createdAt  DateTime @default(now())
+  read       Boolean  @default(false)
 }

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import authRouter from "./route/authRouter.js";
 import userMangementRouter from "./route/userManage.js";
+import router from "./route/facultyRouter.js";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(cookieParser()); // ✅ important for req.cookies.token
 
 app.use('/api/auth', authRouter);
 app.use('/api/admin', userMangementRouter); // Ensure this is defined after authRouter
+app.use('/api/courses', router)
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
