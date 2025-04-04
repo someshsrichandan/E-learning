@@ -41,6 +41,13 @@ model User {
   createdAt        DateTime       @default(now())
   videoProgress   VideoProgress[]
   courseProgress  CourseProgress[]
+  // Relations for Conversations
+  conversationsAsParticipant1 Conversation[]  @relation("Participant1Conversations")
+  conversationsAsParticipant2 Conversation[]  @relation("Participant2Conversations")
+
+  // Relations for Chat Messages
+  sentChatMessages            ChatMessage[]   @relation("SentChatMessages")
+  receivedChatMessages        ChatMessage[]   @relation("ReceivedChatMessages")
 }
 
 model Course {
@@ -203,4 +210,33 @@ model CourseProgress {
   course     Course   @relation(fields: [courseId], references: [id])
 
   @@unique([studentId, courseId])
+}
+
+model Conversation {
+  id               String       @id @default(uuid())
+  participant1Id   String
+  participant2Id   String
+  participant1     User         @relation("Participant1Conversations", fields: [participant1Id], references: [id])
+  participant2     User         @relation("Participant2Conversations", fields: [participant2Id], references: [id])
+  messages         ChatMessage[]
+
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  @@unique([participant1Id, participant2Id])
+}
+
+model ChatMessage {
+  id              String        @id @default(uuid())
+  content         String
+  senderId        String
+  receiverId      String
+  conversationId  String
+
+  sender          User          @relation("SentChatMessages", fields: [senderId], references: [id])
+  receiver        User          @relation("ReceivedChatMessages", fields: [receiverId], references: [id])
+  conversation    Conversation  @relation(fields: [conversationId], references: [id])
+
+  createdAt       DateTime      @default(now())
+  read            Boolean       @default(false)
 }

@@ -7,6 +7,7 @@ import userMangementRouter from "./route/userManage.js";
 import router from "./route/facultyRouter.js";
 import analyticsRouter from "./route/analyticsRouter.js";
 import progressRouter from "./route/progressRouter.js";
+import { initializeSocket } from "./socket.js";
 
 dotenv.config();
 
@@ -28,3 +29,5 @@ app.use('/api/progress', progressRouter);
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+initializeSocket(server);
